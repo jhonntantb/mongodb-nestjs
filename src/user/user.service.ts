@@ -28,6 +28,6 @@ export class UserService {
   }
 
   async removeUser(userId: string) {
-    return this.usersRepository.deleteUser(userId);
+    return this.usersRepository.deleteMany({ id: userId });
   }
 }
