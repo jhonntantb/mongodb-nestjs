@@ -9,8 +9,6 @@ export abstract class EntityRepository<T extends Document> {
   ): Promise<T | null> {
     return this.entityModel
       .findOne(entityFilterQuery, {
-        _id: 0,
-        __v: 0,
         ...projection,
       })
       .exec();
@@ -20,8 +18,8 @@ export abstract class EntityRepository<T extends Document> {
   }
 
   async create(createEntityData: unknown): Promise<T> {
-    const entity = new this.entityModel(createEntityData);
-    return entity.save();
+    const entity = await this.entityModel.create(createEntityData);
+    return entity;
   }
 
   async findOneAndUpdate(
